@@ -179,65 +179,6 @@
                 </div>
             </li>
 
-
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/forms/basic_elements.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
-              </span>
-                    <span class="menu-title">Form Elements</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/tables/basic-table.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-table-large"></i>
-              </span>
-                    <span class="menu-title">Tables</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/charts/chartjs.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-chart-bar"></i>
-              </span>
-                    <span class="menu-title">Charts</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="pages/icons/mdi.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
-              </span>
-                    <span class="menu-title">Icons</span>
-                </a>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <span class="menu-icon">
-                <i class="mdi mdi-security"></i>
-              </span>
-                    <span class="menu-title">User Pages</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="auth">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-              <span class="menu-icon">
-                <i class="mdi mdi-file-document-box"></i>
-              </span>
-                    <span class="menu-title">Documentation</span>
-                </a>
-            </li>
         </ul>
     </nav>
     <!-- partial -->
@@ -317,42 +258,22 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <h6 class="p-3 mb-0">Notifications</h6>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-calendar text-success"></i>
+                            @forelse(auth()->user()->notifications as $notification)
+
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-dark rounded-circle">
+                                            <i class="mdi mdi-calendar text-success"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Event today</p>
-                                    <p class="text-muted ellipsis mb-0"> Just a reminder that you have an event today </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-settings text-danger"></i>
+                                    <div class="preview-item-content">
+                                        <p class="preview-subject mb-1">{{$notification->data['name_en']}}</p>
+                                        <p class="text-muted ellipsis mb-0">{{$notification->data['brand']}} </p>
                                     </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Settings</p>
-                                    <p class="text-muted ellipsis mb-0"> Update dashboard </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-link-variant text-warning"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Launch Admin</p>
-                                    <p class="text-muted ellipsis mb-0"> New admin wow! </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            @empty
+                            @endforelse
                             <p class="p-3 mb-0 text-center">See all notifications</p>
                         </div>
                     </li>

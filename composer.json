@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "mckenziearts/laravel-notify": "^2.1",
+        "stevebauman/location": "^6.5",
         "unisharp/laravel-filemanager": "^2.4"
     },
     "require-dev": {

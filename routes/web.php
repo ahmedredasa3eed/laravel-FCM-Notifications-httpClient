@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\WeatherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +20,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+####### TEST HTTP CLIENT ######
+Route::get('/posts',[RequestController::class,'getAllPosts']);
+Route::get('/new-post',[RequestController::class,'newPost']);
+Route::get('/deletePost/{id}',[RequestController::class,'deletePost']);
+Route::get('/getPostIfAuth',[RequestController::class,'getPostIfAuth']);
+Route::get('/concurrentRequests',[RequestController::class,'concurrentRequests']);
+Route::get('/getPostIfAuthByUsingMacro',[RequestController::class,'getPostIfAuthByUsingMacro']);
+Route::get('/getPostsCollect',[RequestController::class,'getPostsCollect']);
+
+
+Route::get('/getWeatherData',[WeatherController::class,'getWeatherData']);
+
+
+########################
+
+
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+
+###### To show Email Templates Before Send it Just For MAke Sure fot Testing.
+
+Route::get('/showMail', function () {
+    return (new \App\Notifications\ProductCreatedNotification())
+        ->toMail('a@a.com');
+});

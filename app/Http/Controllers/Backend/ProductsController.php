@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Events\ProductCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductsRequest;
+use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
+use App\Notifications\ProductCreatedNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class ProductsController extends Controller
 {
@@ -51,12 +56,20 @@ class ProductsController extends Controller
             $product->tags()->sync($request->tags_id);
 
             if($product){
+
+                //Fire Event
+                event(new ProductCreatedEvent($product));
+
+                //Send Notification to all admins
+                $admins = Admin::all();
+                Notification::sendNow($admins,new ProductCreatedNotification($product));
+
                 notify()->success('Product Added Successfully');
+
                 return redirect()->route('products.index');
             }
 
             DB::commit();
-
         }catch (\Exception $ex)
         {
             DB::rollBack();
