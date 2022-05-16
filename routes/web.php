@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FcmController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\WeatherController;
@@ -39,6 +40,8 @@ Route::get('/getWeatherData',[WeatherController::class,'getWeatherData']);
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
 
 
 

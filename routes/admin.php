@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\ImagesSliderController;
 use App\Http\Controllers\Backend\ProductsController;
 use App\Http\Controllers\Backend\SubCategoriesController;
 use App\Http\Controllers\Backend\TagsController;
+use App\Http\Controllers\FcmController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,6 +91,12 @@ Route::group(['middleware'=>'auth:admin','prefix'=>'admin'],function (){
         Route::put('/update/{slider_id}',[ImagesSliderController::class,'update'])->name('sliders.update');
         Route::get('/destroy/{slider_id}',[ImagesSliderController::class,'destroy'])->name('sliders.destroy');
     });
+
+    #######SEND FCM NOTIFICATION
+    Route::get('/fcm', [FcmController::class, 'index'])->name('fcm');
+    Route::post('/save-token', [FcmController::class, 'saveToken'])->name('save-token');
+    Route::post('/send-notification', [FcmController::class, 'sendNotification'])->name('send_notification');
+############
 
 });
 
